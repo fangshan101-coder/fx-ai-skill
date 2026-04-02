@@ -1,15 +1,14 @@
 ---
 name: fanli
-description: >
-  将商品链接或淘口令转为带优惠券的推广链接，跨平台比价（淘宝/天猫/京东/拼多多/抖音/唯品会/美团），
-  查询历史价格走势并给出购买建议。当用户发来商品链接、淘口令，或提到"转链"、"比价"、"历史价"、
-  "全网最低价"、"有没有优惠券"、"值不值得买"、"价格走势"、"优惠"、"便宜"、"划算"、"打折"、
-  "降价"、"满减"、"省钱"、"买不买"、"该不该入手"时使用。
-  不适用于：快递查询、汇率换算、天气查询、闲鱼二手交易等非购物比价场景。
-version: 4.0.0
-allowed-tools: Bash({baseDir}/scripts/run.sh:*),Read({baseDir}/**)
+description: 将商品链接或淘口令转为带优惠券的推广链接，跨平台比价（淘宝/天猫/京东/拼多多/抖音/唯品会/美团）， 查询历史价格走势并给出购买建议。当用户发来商品链接、淘口令，或提到"转链"、"比价"、"历史价"、 "全网最低价"、"有没有优惠券"、"值不值得买"、"价格走势"、"优惠"、"便宜"、"划算"、"打折"、 "降价"、"满减"、"省钱"、"买不买"、"该不该入手"时使用。 不适用于：快递查询、汇率换算、天气查询、闲鱼二手交易等非购物比价场景。
+version: 4.0.1
+allowed-tools: Bash({baseDir}/scripts/run.sh:*),Read({baseDir}/**),Read({baseDir}/../fx-base/**)
 metadata:
-  {"openclaw": {"requires": {"env": ["FX_AI_API_KEY"]}, "primaryEnv": "FX_AI_API_KEY"}}
+  openclaw:
+    requires:
+      env:
+        - FX_AI_API_KEY
+    primaryEnv: FX_AI_API_KEY
 ---
 
 > **CRITICAL** — 开始前 **必须**用 Read 工具读取 [`../fx-base/SKILL.md`](../fx-base/SKILL.md)，其中包含 fenxiang-ai API 认证和请求规范。
