@@ -1,8 +1,8 @@
 ---
 name: fanli
 description: 将商品链接或淘口令转为带优惠券的推广链接，跨平台比价（淘宝/天猫/京东/拼多多/抖音/唯品会/美团）， 查询历史价格走势并给出购买建议。当用户发来商品链接、淘口令，或提到"转链"、"比价"、"历史价"、 "全网最低价"、"有没有优惠券"、"值不值得买"、"价格走势"、"优惠"、"便宜"、"划算"、"打折"、 "降价"、"满减"、"省钱"、"买不买"、"该不该入手"时使用。 不适用于：快递查询、汇率换算、天气查询、闲鱼二手交易等非购物比价场景。
-version: 4.0.1
-allowed-tools: Bash({baseDir}/scripts/run.sh:*),Read({baseDir}/**),Read({baseDir}/../fx-base/**)
+version: 4.1.0
+allowed-tools: Bash(node {baseDir}/scripts/run.mjs:*),Read({baseDir}/**),Read({baseDir}/../fx-base/**)
 metadata:
   openclaw:
     requires:
@@ -28,13 +28,13 @@ metadata:
 
 ```bash
 # 快捷命令（推荐）
-bash {baseDir}/scripts/run.sh convert "<链接或口令>"
+node {baseDir}/scripts/run.mjs convert "<链接或口令>"
 
 # 等价的标准调用
-bash {baseDir}/scripts/run.sh call convert --tpwd "<链接或口令>"
+node {baseDir}/scripts/run.mjs call convert --tpwd "<链接或口令>"
 
 # 查看接口帮助
-bash {baseDir}/scripts/run.sh call convert --help
+node {baseDir}/scripts/run.mjs call convert --help
 ```
 
 返回 JSON 包含：商品详情 + `comparePriceData`（比价） + `historyPriceData`（历史价）。
@@ -48,7 +48,7 @@ bash {baseDir}/scripts/run.sh call convert --help
 | 明确说"比价"、"哪家便宜" | `compare-price "<链接>"` | `call compare-price --productIdentifier "<链接>"` | Read `{baseDir}/references/compare-price-output.md` |
 | 明确说"历史价"、"价格走势" | — | `call convert --tpwd "<链接>" --includeComparePrice false` | Read `{baseDir}/references/convert-output.md` |
 
-所有命令前缀：`bash {baseDir}/scripts/run.sh`
+所有命令前缀：`node {baseDir}/scripts/run.mjs`
 
 **默认用 `convert`**，它一次返回商品信息 + 比价 + 历史价全部数据。`convert` 支持两个可选参数控制返回内容：
 - `--includeComparePrice true/false`（默认 true）
@@ -93,6 +93,5 @@ bash {baseDir}/scripts/run.sh call convert --help
 
 ## 环境依赖
 
-- Python 3
-- curl
+- Node.js 18+（内置 fetch，无需额外依赖）
 - 环境变量 `FX_AI_API_KEY`：从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 登录获取

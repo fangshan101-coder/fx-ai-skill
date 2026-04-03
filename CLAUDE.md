@@ -11,32 +11,39 @@ fx-ai-skill/
 └── <future-skill>/   # 未来领域 skill
 ```
 
-- `fx-base/` 提供 `fx-api.sh` 脚本，领域 skill 通过 `source` 引用
-- 领域 skill 不自己写 curl 请求，统一用 `fx_check_auth` + `fx_post`
+- `fx-base/` 提供 `fx-api.mjs` 脚本，领域 skill 通过 ESM `import` 引用
+- 领域 skill 不自己写 fetch 请求，统一用 `fxCheckAuth` + `fxPost`
 - 每个领域 skill 的 SKILL.md 开头必须声明 fx-base 依赖
 
-## fx-api.sh 函数
+## fx-api.mjs 函数
 
 | 函数 | 签名 | 说明 |
 |------|------|------|
-| `fx_check_auth` | 无参数 | 校验 `FX_AI_API_KEY`，未设置则 exit 1 |
-| `fx_post` | `<endpoint> <body> [err_msg]` | POST 请求到 `FX_BASE_URL/<endpoint>`，失败则 exit 1 |
-| `fx_check_response` | `<resp_json>` | `code==200` 输出 data，否则 exit 1 |
+| `fxCheckAuth` | `()` | 校验 `FX_AI_API_KEY`，未设置则 exit 1 |
+| `fxPost` | `(endpoint, body, errMsg?)` | POST 请求到 `FX_BASE_URL/<endpoint>`，失败则 exit 1 |
+| `fxCheckResponse` | `(respJson)` | `code==200` 返回 data，否则 exit 1 |
 
 常量：`FX_BASE_URL=https://api-ai-brain.fenxianglife.com/fenxiang-ai-brain`
 
 ## 路径解析
 
-领域 skill 被 symlink 后，通过 `pwd -P` 解析到物理路径，`../../fx-base/` 始终指向正确位置：
+领域 skill 被 symlink 后，通过 `import.meta.url` + `new URL()` 解析到物理路径，`../../fx-base/` 始终指向正确位置：
 
-```bash
-_SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
-_FX_API="$_SCRIPT_DIR/../../fx-base/scripts/fx-api.sh"
-if [[ ! -f "$_FX_API" ]]; then
-  echo '{"status":"error","error_type":"missing_dependency","suggestion":"缺少 fx-base，请安装：npx skills install fangshan101-coder/fx-base"}' >&2
-  exit 1
-fi
-source "$_FX_API"
+```js
+import { fileURLToPath } from 'url';
+import { join, dirname } from 'path';
+import { existsSync } from 'fs';
+
+const _scriptDir = dirname(fileURLToPath(import.meta.url));
+const _fxApiPath = join(_scriptDir, '../../fx-base/scripts/fx-api.mjs');
+if (!existsSync(_fxApiPath)) {
+  process.stderr.write(
+    '{"status":"error","error_type":"missing_dependency","suggestion":"缺少 fx-base，请安装：npx skills install fangshan101-coder/fx-base"}\n'
+  );
+  process.exit(1);
+}
+
+const { fxCheckAuth, fxPost, fxCheckResponse } = await import(_fxApiPath);
 ```
 
 ## 新增领域 Skill 检查清单
@@ -48,8 +55,8 @@ source "$_FX_API"
    >
    > fx-base 未安装？执行 `npx skills install fangshan101-coder/fx-base` 安装到同目录下。
    ```
-3. 脚本头部 source fx-api.sh（使用上方路径解析代码）
-4. 用 `fx_check_auth` + `fx_post` 替代 curl 直接调用
+3. 脚本头部用上方路径解析代码 import fx-api.mjs（`.mjs` 文件，`#!/usr/bin/env node`）
+4. 用 `fxCheckAuth()` + `fxPost()` 替代 fetch 直接调用
 5. 在 `/Users/eamanc/Documents/pe/skills/.publish/config.json` 注册（account: fangshangithub, repo_type: multi）
 6. README.md 安装说明中注明需同时安装 fx-base
 
