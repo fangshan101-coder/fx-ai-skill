@@ -143,6 +143,42 @@
 </example>
 
 <example>
+用户：帮我转一下这个美团链接 https://click.meituan.com/t?t=1&c=2&p=wUjL1LxzQ878
+
+助手：
+
+正在查询商品信息...
+
+[调用 bash {baseDir}/scripts/run.mjs call convert --tpwd "https://click.meituan.com/t?t=1&c=2&p=wUjL1LxzQ878"]
+
+[接口返回后，直接输出以下内容]
+
+![美团外卖红包天天领](https://img.meituan.net/xxx.jpg)
+
+### 美团外卖红包天天领 最高减18元
+
+| 项目 | 详情 |
+|------|------|
+| 原价 | ~~¥30.00~~ |
+| 到手价 | **¥12.00** |
+| 优惠券 | 满减 ¥18.00 |
+| 省 | ¥18.00 |
+| 佣金 | ¥0.50 |
+| 平台 | 美团 |
+
+👉 复制口令打开：`买买买，https://click.meituan.com/t?t=1&c=2&p=xxx`
+[点击购买](https://click.meituan.com/t?t=1&c=2&p=xxx)
+
+---
+
+暂无历史价格数据
+
+---
+
+暂无跨平台比价数据
+</example>
+
+<example>
 用户：帮我看看值不值得买
 助手：请发一下商品链接或淘口令，我来帮你查～
 </example>

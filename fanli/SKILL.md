@@ -1,7 +1,7 @@
 ---
 name: fanli
-description: 将商品链接或淘口令转为带优惠券的推广链接，跨平台比价（淘宝/天猫/京东/拼多多/抖音/唯品会/美团）， 查询历史价格走势并给出购买建议。当用户发来商品链接、淘口令，或提到"转链"、"比价"、"历史价"、 "全网最低价"、"有没有优惠券"、"值不值得买"、"价格走势"、"优惠"、"便宜"、"划算"、"打折"、 "降价"、"满减"、"省钱"、"买不买"、"该不该入手"时使用。 不适用于：快递查询、汇率换算、天气查询、闲鱼二手交易等非购物比价场景。
-version: 4.1.0
+description: 将商品链接或淘口令转为带优惠券的推广链接，跨平台比价（淘宝/天猫/京东/拼多多/抖音/唯品会/美团）， 查询历史价格走势并给出购买建议。当用户发来商品链接、淘口令、美团链接，或提到"转链"、"比价"、"历史价"、 "全网最低价"、"有没有优惠券"、"值不值得买"、"价格走势"、"优惠"、"便宜"、"划算"、"打折"、 "降价"、"满减"、"省钱"、"买不买"、"该不该入手"、"美团"、"外卖"、"团购"、"到店"、"美团红包"时使用。 不适用于：快递查询、汇率换算、天气查询、闲鱼二手交易等非购物比价场景。
+version: 4.2.0
 allowed-tools: Bash(node {baseDir}/scripts/run.mjs:*),Read({baseDir}/**),Read({baseDir}/../fx-base/**)
 metadata:
   openclaw:
@@ -30,6 +30,9 @@ metadata:
 # 快捷命令（推荐）
 node {baseDir}/scripts/run.mjs convert "<链接或口令>"
 
+# 美团链接转链
+node {baseDir}/scripts/run.mjs convert "https://click.meituan.com/t?t=1&c=2&p=xxx"
+
 # 等价的标准调用
 node {baseDir}/scripts/run.mjs call convert --tpwd "<链接或口令>"
 
@@ -50,7 +53,7 @@ node {baseDir}/scripts/run.mjs call convert --help
 
 所有命令前缀：`node {baseDir}/scripts/run.mjs`
 
-**默认用 `convert`**，它一次返回商品信息 + 比价 + 历史价全部数据。`convert` 支持两个可选参数控制返回内容：
+**默认用 `convert`**，它一次返回商品信息 + 比价 + 历史价全部数据。美团链接（`click.meituan.com`、`dpurl.cn`、`meituan.com`、`imeituan://` 等）同样走 `convert` 路径，数据结构与电商一致。`convert` 支持两个可选参数控制返回内容：
 - `--includeComparePrice true/false`（默认 true）
 - `--includeHistoryPrice true/false`（默认 true）
 

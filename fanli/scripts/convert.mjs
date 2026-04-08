@@ -33,6 +33,7 @@ function help() {
 示例:
   convert --tpwd "https://e.tb.cn/h.xxx"
   convert --tpwd "https://u.jd.com/xxx" --includeComparePrice false
+  convert --tpwd "https://click.meituan.com/t?t=1&c=2&p=xxx"
   convert --tpwd "￥xxx￥" --format table
 
 数据流向: 商品链接会被发送到 https://api-ai-brain.fenxianglife.com 进行解析

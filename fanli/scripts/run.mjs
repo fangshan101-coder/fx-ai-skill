@@ -12,6 +12,7 @@ function usage() {
   process.stdout.write(`用法:
   快捷命令（推荐）:
     run.mjs convert "<链接>"                    # 转链（含比价+历史价）
+    run.mjs convert "https://click.meituan.com/t?..."  # 美团转链
     run.mjs compare-price "<链接>"              # 仅比价
 
   标准调用:

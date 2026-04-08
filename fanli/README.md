@@ -34,10 +34,11 @@ export FX_AI_API_KEY="your-api-key"
 
 ## 使用方式
 
-直接发商品链接或淘口令即可，无需任何指令：
+直接发商品链接、淘口令或美团链接即可，无需任何指令：
 
 ```
 https://u.jd.com/xxx
+https://click.meituan.com/t?t=1&c=2&p=xxx
 ```
 
 也可以明确意图：
@@ -46,6 +47,7 @@ https://u.jd.com/xxx
 这个链接帮我比价
 这个商品值不值得买
 帮我看看历史价格
+帮我转一下这个美团链接
 ```
 
 ## 输出示例
@@ -82,6 +84,5 @@ https://u.jd.com/xxx
 
 ## 环境依赖
 
-- Python 3
-- curl
+- Node.js 18+
 - 环境变量 `FX_AI_API_KEY`（见上方配置说明）
