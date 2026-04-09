@@ -7,7 +7,8 @@
 ```
 fx-ai-skill/
 ├── fx-base/          # 公共基础（认证 + 请求 + 错误处理）
-├── fanli/            # 省钱购物助手
+├── fanli/            # 省钱购物助手（国内电商）
+├── cashback/         # 海外购物返利助手
 └── <future-skill>/   # 未来领域 skill
 ```
 
@@ -69,6 +70,7 @@ const { fxCheckAuth, fxPost, fxCheckResponse } = await import(_fxApiPath);
 | 发布账号 | fangshangithub |
 | fx-base slug | fx-base |
 | fanli slug | fanli（不可改） |
+| cashback slug | cashback（不可改） |
 
 ## 共享环境变量
 
