@@ -24,7 +24,7 @@ npx skills install fangshan101-coder/cashback
 export FX_AI_API_KEY="your-api-key"
 ```
 
-从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/docs) 登录获取 API Key。
+从 [feima-lab 开放平台](https://platform.feima.ai/) 登录获取 API Key。
 
 建议将 `export` 加入 `~/.zshrc` 或 `~/.bashrc` 使其永久生效。
 

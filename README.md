@@ -25,4 +25,4 @@ npx skills install fangshan101-coder/cashback
 
 | 变量 | 必填 | 说明 |
 |------|------|------|
-| `FX_AI_API_KEY` | 是 | 从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/docs) 获取 |
+| `FX_AI_API_KEY` | 是 | 从 [feima-lab 开放平台](https://platform.feima.ai/) 获取 |

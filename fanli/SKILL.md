@@ -1,7 +1,7 @@
 ---
 name: fanli
 description: 将商品链接或淘口令转为带优惠券的推广链接，跨平台比价（淘宝/天猫/京东/拼多多/抖音/唯品会/美团）， 查询历史价格走势并给出购买建议。当用户发来商品链接、淘口令、美团链接，或提到"转链"、"比价"、"历史价"、 "全网最低价"、"有没有优惠券"、"值不值得买"、"价格走势"、"优惠"、"便宜"、"划算"、"打折"、 "降价"、"满减"、"省钱"、"买不买"、"该不该入手"、"美团"、"外卖"、"团购"、"到店"、"美团红包"时使用。 不适用于：快递查询、汇率换算、天气查询、闲鱼二手交易等非购物比价场景。
-version: 4.2.0
+version: 4.2.1
 allowed-tools: Bash(node {baseDir}/scripts/run.mjs:*),Read({baseDir}/**),Read({baseDir}/../fx-base/**)
 metadata:
   openclaw:
@@ -21,7 +21,7 @@ metadata:
 
 ## 前置条件
 
-- 环境变量 `FX_AI_API_KEY`：从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 登录获取。未设置时脚本会返回 `missing_api_key` 错误
+- 环境变量 `FX_AI_API_KEY`：从 [feima-lab 开放平台](https://platform.feima.ai/) 登录获取。未设置时脚本会返回 `missing_api_key` 错误
 - **数据流向**：用户提供的商品链接会被发送到 `https://api-ai-brain.fenxianglife.com` 进行解析，请确保信任该服务后再使用
 
 ## 快速开始
@@ -83,7 +83,7 @@ node {baseDir}/scripts/run.mjs call convert --help
 | `errorMessage: "未找到相关商品"` | 没找到商品信息，请检查链接是否正确 |
 | `topLowestItems` 为空 | 暂无比价数据 |
 | `historyPriceData` 不存在 | 暂无历史价格数据 |
-| `missing_api_key` | 请设置环境变量 `FX_AI_API_KEY`，从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 登录获取 |
+| `missing_api_key` | 请设置环境变量 `FX_AI_API_KEY`，从 [feima-lab 开放平台](https://platform.feima.ai/) 登录获取 |
 | `api_unavailable` / HTTP 错误 | 服务暂时不可用，请稍后再试 |
 
 ## 不适用场景
@@ -97,4 +97,4 @@ node {baseDir}/scripts/run.mjs call convert --help
 ## 环境依赖
 
 - Node.js 18+（内置 fetch，无需额外依赖）
-- 环境变量 `FX_AI_API_KEY`：从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 登录获取
+- 环境变量 `FX_AI_API_KEY`：从 [feima-lab 开放平台](https://platform.feima.ai/) 登录获取

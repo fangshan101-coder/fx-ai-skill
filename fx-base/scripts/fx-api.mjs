@@ -11,7 +11,7 @@ export function fxCheckAuth() {
   const key = process.env.FX_AI_API_KEY;
   if (!key) {
     process.stderr.write(
-      '{"status":"error","error_type":"missing_api_key","suggestion":"请设置环境变量 FX_AI_API_KEY，从 https://platform.fenxiang-ai.com/ 登录获取"}\n'
+      '{"status":"error","error_type":"missing_api_key","suggestion":"请设置环境变量 FX_AI_API_KEY，从 https://platform.feima.ai/ 登录获取"}\n'
     );
     process.exit(1);
   }

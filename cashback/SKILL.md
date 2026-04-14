@@ -1,7 +1,7 @@
 ---
 name: cashback
 description: 海外品牌官方商城返利（cashback）助手。通过多麦联盟渠道，为指定海外商家的购物订单提供返利查询与转链服务，三个能力：粘贴商品链接生成返利短链、查询商家返利比例、查看个人返利订单。当前仅支持 Adidas、Space NK NL（荷兰站）、designwebstore DE（德国站）三家，不在清单中的海外商家暂未开通。当用户发来这三家商家的商品链接，或提到"Adidas/阿迪达斯返利"、"Space NK 返利"、"designwebstore 返利"、"cashback"、"海淘返利"、"我的返利订单"时使用。不适用于：清单外的任何商家（包括 Amazon/Nike/iHerb/eBay/Shein 等）、快递查询、汇率换算。
-version: 1.2.0
+version: 1.2.1
 allowed-tools: Bash(node {baseDir}/scripts/run.mjs:*),Read({baseDir}/**),Read({baseDir}/../fx-base/**)
 metadata:
   openclaw:
@@ -33,7 +33,7 @@ metadata:
 
 ## 前置条件
 
-- 环境变量 `FX_AI_API_KEY`：从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 登录获取。未设置时脚本会返回 `missing_api_key` 错误
+- 环境变量 `FX_AI_API_KEY`：从 [feima-lab 开放平台](https://platform.feima.ai/) 登录获取。未设置时脚本会返回 `missing_api_key` 错误
 - **数据流向**：用户提供的链接和查询会被发送到 `https://api-ai-brain.fenxianglife.com` 处理，请确保信任该服务后再使用
 
 ## 快速开始
@@ -98,7 +98,7 @@ Step 5 用户继续追问 → 回到 Step 1
 | `no_available_plan` | "该商家暂无可用返利计划" | 告知可能是临时下线，建议稍后重试 |
 | `no_orders` | "近 {days} 天暂无返利订单" | 提示"通过返利链接购物后，订单通常需要 1-3 天才会出现" |
 | `api_unavailable` / HTTP 错误 | "服务暂时不可用，请稍后重试" | 建议 1 分钟后重试 |
-| `missing_api_key` | "请设置环境变量 `FX_AI_API_KEY`" | 给出 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 链接 |
+| `missing_api_key` | "请设置环境变量 `FX_AI_API_KEY`" | 给出 [feima-lab 开放平台](https://platform.feima.ai/) 链接 |
 | `missing_parameter` | "请发一下商品链接 / 请告诉我要查哪个商家" | 引导用户补充参数 |
 
 ## 不适用场景
@@ -118,4 +118,4 @@ Step 5 用户继续追问 → 回到 Step 1
 ## 环境依赖
 
 - Node.js 18+
-- 环境变量 `FX_AI_API_KEY`：从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 登录获取
+- 环境变量 `FX_AI_API_KEY`：从 [feima-lab 开放平台](https://platform.feima.ai/) 登录获取

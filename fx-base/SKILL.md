@@ -1,7 +1,7 @@
 ---
 name: fx-base
 description: fenxiang-ai 后端公共基础模块：API 认证校验（FX_AI_API_KEY）、请求封装（POST + Bearer Token）、 通用错误处理（missing_api_key / api_unavailable / api_error）。 这是基础依赖 skill，被其他领域 skill（如 fanli）的脚本通过 source 引用，不直接面向用户使用。 当你看到领域 skill 的 CRITICAL 声明要求读取本文件时触发。
-version: 1.1.0
+version: 1.1.1
 allowed-tools: Bash({baseDir}/scripts/*),Read({baseDir}/**)
 metadata:
   openclaw:
@@ -31,7 +31,7 @@ metadata:
 
 | 变量 | 必填 | 说明 |
 |------|------|------|
-| `FX_AI_API_KEY` | 是 | 从 [fenxiang-ai 开放平台](https://platform.fenxiang-ai.com/) 登录获取 |
+| `FX_AI_API_KEY` | 是 | 从 [feima-lab 开放平台](https://platform.feima.ai/) 登录获取 |
 
 ## 安装
 
