@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// fx-api.mjs — fenxiang-ai 公共请求库
+// fx-api.mjs — feima-lab 公共请求库
 // 用法：在领域 skill 脚本中 import { fxCheckAuth, fxPost, fxCheckResponse, FX_BASE_URL } from './fx-api.mjs'
 
 // ── 常量 ──
@@ -19,7 +19,7 @@ export function fxCheckAuth() {
 }
 
 // ── fxPost(endpoint, body, errMsg) ──
-// 发送 POST 请求到 fenxiang-ai 后端，返回响应 JSON 字符串
+// 发送 POST 请求到 feima-lab 后端，返回响应 JSON 字符串
 // 参数：
 //   endpoint — API 路径（如 skill/api/convert），不含 BASE_URL 前缀
 //   body     — 请求体对象（会被 JSON.stringify）

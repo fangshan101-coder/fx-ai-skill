@@ -1,6 +1,6 @@
 # fx-ai-skill 仓库规则
 
-本仓库是 fenxiang-ai 后端的 Skill 集合，包含公共基础 `fx-base` + 多个领域 Skill。
+本仓库是 feima-lab 后端的 Skill 集合，包含公共基础 `fx-base` + 多个领域 Skill。
 
 ## 架构
 
@@ -52,7 +52,7 @@ const { fxCheckAuth, fxPost, fxCheckResponse } = await import(_fxApiPath);
 1. 在仓库根目录创建 `<skill名>/` 目录，含 `SKILL.md` + `scripts/` + `references/`
 2. SKILL.md frontmatter 之后第一行添加 fx-base 依赖声明：
    ```markdown
-   > **CRITICAL** — 开始前 **必须**用 Read 工具读取 [`../fx-base/SKILL.md`](../fx-base/SKILL.md)，其中包含 fenxiang-ai API 认证和请求规范。
+   > **CRITICAL** — 开始前 **必须**用 Read 工具读取 [`../fx-base/SKILL.md`](../fx-base/SKILL.md)，其中包含 feima-lab API 认证和请求规范。
    >
    > fx-base 未安装？执行 `npx skills install fangshan101-coder/fx-base` 安装到同目录下。
    ```
@@ -76,4 +76,4 @@ const { fxCheckAuth, fxPost, fxCheckResponse } = await import(_fxApiPath);
 
 | 变量 | 说明 |
 |------|------|
-| `FX_AI_API_KEY` | fenxiang-ai 开放平台 API Key，所有领域 Skill 共用 |
+| `FX_AI_API_KEY` | feima-lab 开放平台 API Key，所有领域 Skill 共用 |

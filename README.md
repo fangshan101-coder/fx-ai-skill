@@ -1,6 +1,6 @@
 # fx-ai-skill
 
-fenxiang-ai 后端的 Claude Code Skill 集合。
+feima-lab 后端的 Claude Code Skill 集合。
 
 ## Skill 列表
 
