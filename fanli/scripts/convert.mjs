@@ -16,7 +16,7 @@ if (!existsSync(_fxApiPath)) {
   process.exit(1);
 }
 
-const { fxCheckAuth, fxPost } = await import(_fxApiPath);
+const { fxCheckAuth, fxPost, readPeerIdentity } = await import(_fxApiPath);
 
 function help() {
   process.stdout.write(`用法: convert --tpwd <链接或口令> [选项]
@@ -81,6 +81,14 @@ fxCheckAuth();
 const body = { tpwd };
 if (includeCompare !== 'true') body.includeComparePrice = false;
 if (includeHistory !== 'true') body.includeHistoryPrice = false;
+
+// 存在 identity.json 时带上 peerId 走 fanli 返利模式；读不到则走老链路（参数可选）
+const _identity = readPeerIdentity();
+if (_identity?.peerId) {
+  body.peerId = _identity.peerId;
+  if (_identity.nickname) body.nickname = _identity.nickname;
+  if (_identity.avatar) body.avatar = _identity.avatar;
+}
 
 const respText = await fxPost('skill/api/convert', body, '转链服务暂时不可用，请稍后重试');
 

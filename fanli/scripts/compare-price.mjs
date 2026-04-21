@@ -17,7 +17,7 @@ if (!existsSync(_fxApiPath)) {
   process.exit(1);
 }
 
-const { fxCheckAuth, fxPost } = await import(_fxApiPath);
+const { fxCheckAuth, fxPost, readPeerIdentity } = await import(_fxApiPath);
 
 function help() {
   process.stdout.write(`用法: compare-price --productIdentifier <链接> [选项]
@@ -74,6 +74,14 @@ fxCheckAuth();
 
 const body = { productIdentifier };
 if (shopType) body.shopType = shopType;
+
+// 存在 identity.json 时带上 peerId（服务端可选参数，缺失也能正常比价）
+const _identity = readPeerIdentity();
+if (_identity?.peerId) {
+  body.peerId = _identity.peerId;
+  if (_identity.nickname) body.nickname = _identity.nickname;
+  if (_identity.avatar) body.avatar = _identity.avatar;
+}
 
 const respText = await fxPost('skill/api/compare-price', body, '比价服务暂时不可用，请稍后重试');
 
