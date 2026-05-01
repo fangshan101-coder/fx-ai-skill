@@ -16,7 +16,7 @@ if (!existsSync(_fxApiPath)) {
   process.exit(1);
 }
 
-const { fxCheckAuth, fxPost, readPeerIdentity } = await import(_fxApiPath);
+const { fxCheckAuth, fxPost, readPeerIdentity, formatComparePriceData, formatHistoryPriceData } = await import(_fxApiPath);
 
 function help() {
   process.stdout.write(`用法: convert --tpwd <链接或口令> [选项]
@@ -101,6 +101,13 @@ try {
 }
 
 const data = resp.data !== undefined ? resp.data : resp;
+
+// brain /skill/api/convert 顶层字段已是元字符串(LLMFieldTransformer 转过)，
+// 但聚合的 comparePriceData / historyPriceData 嵌套对象内部仍是分 Long，这里转换。
+if (data && typeof data === 'object') {
+  formatComparePriceData(data.comparePriceData);
+  formatHistoryPriceData(data.historyPriceData);
+}
 
 if (resp.code === 200 && data) {
   if (format === 'table') {

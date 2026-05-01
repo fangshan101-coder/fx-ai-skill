@@ -111,3 +111,69 @@ export function fxCheckResponse(respJson) {
     process.exit(1);
   }
 }
+
+// ── 价格单位格式化 ──
+// brain ComparePriceDTO / HistoryPriceDTO 内部价格字段类型 Long 单位"分"，
+// 给 brain 内部 agent skill 用；fanli skill 出口必须转 "X.XX元" 字符串保持口径一致。
+// 不能改 brain 底层 DTO（13+ processor 共用），所以在 fanli skill 出口转。
+
+// 分(number) → "X.XX元" 字符串。非 number 透传（已是字符串、null 都安全 → 幂等）
+export const fmtYuan = (cents) =>
+  typeof cents === 'number' ? (cents / 100).toFixed(2) + '元' : cents;
+
+// ComparePriceItemVO 字段就地转换，字段名一一显式赋值与 brain-domain ComparePriceDTO.ComparePriceItemVO 对齐
+export function formatPriceItemVO(item) {
+  if (!item || typeof item !== 'object') return;
+  item.price = fmtYuan(item.price);
+  item.commission = fmtYuan(item.commission);
+  item.itemDiscountPrice = fmtYuan(item.itemDiscountPrice);
+  item.itemPrice = fmtYuan(item.itemPrice);
+  item.finalPrice = fmtYuan(item.finalPrice);
+  item.savingMoney = fmtYuan(item.savingMoney);
+  item.totalComm = fmtYuan(item.totalComm);
+  item.shareComm = fmtYuan(item.shareComm);
+  item.vipMoreComm = fmtYuan(item.vipMoreComm);
+  if (item.coupon) item.coupon.couponMoney = fmtYuan(item.coupon.couponMoney);
+  if (Array.isArray(item.foldedItems)) item.foldedItems.forEach(formatPriceItemVO);
+}
+
+// ComparePriceDTO 就地转换：topLowestItems + floorPriceItem + platforms
+export function formatComparePriceData(cpd) {
+  if (!cpd || typeof cpd !== 'object') return;
+  formatPriceItemVO(cpd.floorPriceItem);
+  if (Array.isArray(cpd.topLowestItems)) cpd.topLowestItems.forEach(formatPriceItemVO);
+  if (Array.isArray(cpd.platforms)) {
+    cpd.platforms.forEach((p) => { if (p) p.price = fmtYuan(p.price); });
+  }
+}
+
+// HistoryPriceDTO 就地转换：itemHistoryStatisticsResult + itemPriceMonitorResult + subResults + priceAnalyzeItemResults
+export function formatHistoryPriceData(hpd) {
+  if (!hpd || typeof hpd !== 'object') return;
+  const stats = hpd.itemHistoryStatisticsResult;
+  if (stats) {
+    stats.historyLowestPrice = fmtYuan(stats.historyLowestPrice);
+    stats.usuallySellPrice = fmtYuan(stats.usuallySellPrice);
+    stats.historyLowestPriceBy30Days = fmtYuan(stats.historyLowestPriceBy30Days);
+    stats.lowest60DaysPrice = fmtYuan(stats.lowest60DaysPrice);
+    stats.lowest180DaysPrice = fmtYuan(stats.lowest180DaysPrice);
+    stats.lowest618Price = fmtYuan(stats.lowest618Price);
+    stats.lowest1111Price = fmtYuan(stats.lowest1111Price);
+  }
+  const monitor = hpd.itemPriceMonitorResult;
+  if (monitor) monitor.monitorPrice = fmtYuan(monitor.monitorPrice);
+  if (Array.isArray(hpd.subResults)) {
+    hpd.subResults.forEach((p) => {
+      if (!p) return;
+      p.price = fmtYuan(p.price);
+      p.originalPrice = fmtYuan(p.originalPrice);
+    });
+  }
+  if (Array.isArray(hpd.priceAnalyzeItemResults)) {
+    hpd.priceAnalyzeItemResults.forEach((p) => {
+      if (!p) return;
+      p.itemDiscountPrice = fmtYuan(p.itemDiscountPrice);
+      p.savingMoney = fmtYuan(p.savingMoney);
+    });
+  }
+}

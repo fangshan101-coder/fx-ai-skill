@@ -17,7 +17,7 @@ if (!existsSync(_fxApiPath)) {
   process.exit(1);
 }
 
-const { fxCheckAuth, fxPost, readPeerIdentity } = await import(_fxApiPath);
+const { fxCheckAuth, fxPost, readPeerIdentity, formatComparePriceData } = await import(_fxApiPath);
 
 function help() {
   process.stdout.write(`用法: compare-price --productIdentifier <链接> [选项]
@@ -94,6 +94,9 @@ try {
 }
 
 const data = resp.data !== undefined ? resp.data : resp;
+
+// brain ComparePriceDTO 内部价格字段单位"分 Long"，对外展示需转 "X.XX元" 字符串
+formatComparePriceData(data);
 
 if (resp.code === 200 && data) {
   if (format === 'table') {
